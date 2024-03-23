@@ -32,10 +32,58 @@ interface User {
 }
 
 // Images Object
+type RenditionObject = {
+  url: string;
+  width: string;
+  height: string;
+  size?: string;
+  mp4?: string;
+  mp4_size?: string;
+  webp?: string;
+  webp_size?: string;
+}
+
 interface Images {
-  fixed_height: ImageData;
-  fixed_height_still: ImageData;
-  // Add other image formats as needed
+  fixed_height?: RenditionObject;
+  fixed_height_still?: RenditionObject;
+  fixed_height_downsampled?: RenditionObject;
+  fixed_width?: RenditionObject;
+  fixed_width_still?: RenditionObject;
+  fixed_width_downsampled?: RenditionObject;
+  fixed_height_small?: RenditionObject;
+  fixed_height_small_still?: RenditionObject;
+  fixed_width_small?: RenditionObject;
+  fixed_width_small_still?: RenditionObject;
+  downsized?: RenditionObject;
+  downsized_still?: RenditionObject;
+  downsized_large?: RenditionObject;
+  downsized_medium?: RenditionObject;
+  downsized_small?: {
+    mp4: string;
+    width: string;
+    height: string;
+    mp4_size: string;
+  };
+  original?: RenditionObject & {
+    frames: string;
+  };
+  original_still?: RenditionObject;
+  looping?: {
+    mp4: string;
+    width: string;
+    height: string;
+  };
+  preview?: {
+    mp4: string;
+    width: string;
+    height: string;
+    mp4_size: string;
+  };
+  preview_gif?: {
+    url: string;
+    width: string;
+    height: string;
+  };
 }
 
 interface ImageData {
@@ -71,4 +119,4 @@ interface TrendingResponse {
 }
 
 
-export type { GifObject, User, Images, ImageData, Meta, Pagination, TrendingResponse }
+export type { GifObject, User, RenditionObject, Images, ImageData, Meta, Pagination, TrendingResponse }

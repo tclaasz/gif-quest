@@ -58,12 +58,10 @@ const App: React.FC = () => {
   // On initial render, fetch trending items
   useEffect(() => {
     fetchTrendingItems()
-  }, [fetchTrendingItems])
+  }, [])
 
   // When the search query changes, fetch search results
   useEffect(() => {
-    fetchSearchItems()
-
     if (searchQuery) {
       fetchSearchItems()
     } else {

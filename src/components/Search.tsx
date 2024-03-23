@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useCallback, useState } from "react"
 import { debounce } from "../utils"
 
 type Props = {
@@ -8,16 +8,26 @@ type Props = {
 const Search: React.FC<Props> = ({ setSearchQuery }) => {
   const [inputValue, setInputValue] = useState("")
 
-  const debouncedSearch = debounce((value: string) => {
-    setSearchQuery(value)
-  }, 500)
+  // const debouncedSearch = debounce((value: string) => {
+  //   setSearchQuery(value)
+  // }, 500)
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = event.target.value
+  //   setInputValue(value)
+  // }
+
+  const handleSearch = useCallback(
+    debounce((value: string) => {
+      setSearchQuery(value)
+    }, 500),
+    []
+  )
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
     setInputValue(value)
-
-    // Debounce the search query
-    debouncedSearch(value)
+    handleSearch(value)
   }
 
   return (
@@ -31,7 +41,7 @@ const Search: React.FC<Props> = ({ setSearchQuery }) => {
         type="text"
         className="search-input"
         value={inputValue}
-        onChange={handleSearch}
+        onChange={handleChange}
         placeholder="Search for GIFs"
       />
     </div>

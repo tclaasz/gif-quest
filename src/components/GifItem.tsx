@@ -11,18 +11,23 @@ const colours = ["rgb(153, 51, 255)", "rgb(97 87 255)", "rgb(255, 102, 102)", "r
 const GifItem: React.FC<Props> = ({ item, index }) => {
   const [loading, setLoading] = useState(true)
 
+  const image = item.images?.fixed_height_downsampled
   const colourIndex = index % colours.length
 
   useEffect(() => {
     const img = new Image()
-    img.src = item.images.fixed_height.url
+    const url = item.images?.fixed_height_downsampled?.url
+    if (!url) return
+
+    img.src = url
     img.onload = () => setLoading(false)
-  }, [item.images.fixed_height.url])
+  }, [item.images?.fixed_height_downsampled?.url])
 
-  const image = item.images.fixed_height
-  const { width, height } = image
 
-  return (
+  const width = image?.width
+  const height = image?.height
+
+  return image?.url ? (
     <div className="gif-item">
       <div className="gif-item-image-container" style={{ backgroundColor: colours[colourIndex] }}>
         {loading ? (
@@ -44,7 +49,7 @@ const GifItem: React.FC<Props> = ({ item, index }) => {
         )}
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default GifItem
