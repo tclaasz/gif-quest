@@ -49,6 +49,7 @@ const FavouritesGrid: React.FC<Props> = ({
       // remove duplicates
       const newItems = data.data.filter((item) => !items.some((i) => i.id === item.id))
       setItems([...items, ...newItems])
+      setError(null)
     } catch (error) {
       console.error("An error occurred while fetching favourite items.", error)
       setError("An error occurred while fetching favourite items.")
