@@ -3,24 +3,24 @@ import { GifObject } from "../types/Giphy"
 
 type Props = {
   item: GifObject
-  favouriteItems: GifObject[]
-  setFavouriteItems: Dispatch<SetStateAction<GifObject[]>>
+  favouriteIds: string[]
+  setfavouriteIds: Dispatch<SetStateAction<string[]>>
 }
 
-const FavouriteButton: React.FC<Props> = ({ item, favouriteItems, setFavouriteItems }) => {
-  const isFavourite = favouriteItems?.some((favouriteItem) => favouriteItem.id === item.id)
+const FavouriteButton: React.FC<Props> = ({ item, favouriteIds, setfavouriteIds }) => {
+  const isFavourite = favouriteIds?.some((id) => id === item.id)
 
   const handleClick = (e: MouseEvent) => {
     e.preventDefault()
 
     if (isFavourite) {
-      const updatedFavourites = favouriteItems.filter((favouriteItem) => favouriteItem.id !== item.id)
-      setFavouriteItems(updatedFavourites)
+      const updatedFavourites = favouriteIds.filter((id) => id !== item.id)
+      setfavouriteIds(updatedFavourites)
     } else {
-      if (!favouriteItems) {
-        setFavouriteItems([item])
+      if (!favouriteIds) {
+        setfavouriteIds([item.id])
       } else {
-        setFavouriteItems([...favouriteItems, item])
+        setfavouriteIds([...favouriteIds, item.id])
       }
     }
   }

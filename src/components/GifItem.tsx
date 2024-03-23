@@ -5,8 +5,8 @@ import FavouriteButton from "./FavouriteButton"
 type Props = {
   item: GifObject
   index: number
-  favouriteItems: GifObject[]
-  setFavouriteItems: Dispatch<SetStateAction<GifObject[]>>
+  favouriteIds: string[]
+  setfavouriteIds: Dispatch<SetStateAction<string[]>>
 }
 
 const colours = [
@@ -19,7 +19,7 @@ const colours = [
   "#02FF99"
 ]
 
-const GifItem: React.FC<Props> = ({ item, index, favouriteItems, setFavouriteItems }) => {
+const GifItem: React.FC<Props> = ({ item, index, favouriteIds, setfavouriteIds }) => {
   const [loading, setLoading] = useState(true)
 
   const image = item.images?.fixed_height_downsampled
@@ -60,7 +60,7 @@ const GifItem: React.FC<Props> = ({ item, index, favouriteItems, setFavouriteIte
         )}
       </div>
 
-      <FavouriteButton item={item} favouriteItems={favouriteItems} setFavouriteItems={setFavouriteItems} />
+      <FavouriteButton item={item} favouriteIds={favouriteIds} setfavouriteIds={setfavouriteIds} />
     </div>
   ) : null
 }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import './App.css'
 import config from "./config"
-import { GifObject, TrendingResponse } from './types/Giphy'
+import { GifObject, GiphyResponse } from './types/Giphy'
 import TrendingSearchGrid from './components/TrendingSearchGrid'
 import Search from './components/Search'
 import ViewOptions from './components/ViewOptions'
@@ -12,7 +12,7 @@ export type View = typeof viewOptions[number]
 
 const App: React.FC = () => {
   const favourites = useMemo(() =>{
-    return JSON.parse(localStorage.getItem("favourites") || "[]") as GifObject[]
+    return JSON.parse(localStorage.getItem("favourites") || "[]") as string[]
   }, [])
 
   const [error, setError] = useState<string|null>(null)
@@ -20,7 +20,8 @@ const App: React.FC = () => {
   const [searchInputValue, setSearchInputValue] = useState("")
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [searchItems, setSearchItems] = useState<GifObject[]>([])
-  const [favourteItems, setFavouriteItems] = useState<GifObject[]>(favourites)
+  const [favouriteIds, setfavouriteIds] = useState<string[]>(favourites)
+  const [favouriteItems, setFavouriteItems] = useState<GifObject[]>([])
   const [view, setView] = useState<View>("trending")
 
   const { limit, bundle } = config.query
@@ -29,12 +30,10 @@ const App: React.FC = () => {
     if (trendingItems.length > 0) return
 
     try {
-      const limit = 36
-      const bundle = "messaging_non_clips"
       const url = `${config.api.endpoints.trending}?api_key=${config.api.key}&limit=${limit}&bundle=${bundle}`
 
       const response = await fetch(url)
-      const data = await response.json() as TrendingResponse
+      const data = await response.json() as GiphyResponse
 
       if (data.meta.status !== 200) {
         throw new Error(data.meta.msg)
@@ -55,7 +54,7 @@ const App: React.FC = () => {
       const url = `${config.api.endpoints.search}?api_key=${config.api.key}&q=${encodeURIComponent(searchQuery)}&limit=${limit}&bundle=${bundle}`
 
       const response = await fetch(url)
-      const data = await response.json() as TrendingResponse
+      const data = await response.json() as GiphyResponse
 
       if (data.meta.status !== 200) {
         throw new Error(data.meta.msg)
@@ -84,16 +83,16 @@ const App: React.FC = () => {
     }
   }, [fetchSearchItems, searchQuery])
 
-  // Load favourites from local storage on initial render
+  // Load favourite ids from local storage on initial render
   useEffect(() => {
-    if (favourites) setFavouriteItems(favourites)
+    if (favourites) setfavouriteIds(favourites)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Save favourites to local storage when they change
   useEffect(() => {
-    localStorage.setItem("favourites", JSON.stringify(favourteItems))
-  }, [favourteItems])
+    localStorage.setItem("favourites", JSON.stringify(favouriteIds))
+  }, [favouriteIds])
 
   // When there is a search query, use the search items otherwise use the trending items by default
   const items = useMemo(() => {
@@ -124,14 +123,17 @@ const App: React.FC = () => {
 
           <TrendingSearchGrid
             items={items}
-            favouriteItems={favourteItems}
-            setFavouriteItems={setFavouriteItems}
+            favouriteIds={favouriteIds}
+            setfavouriteIds={setfavouriteIds}
           />
         </>
-      ): (
+      ) : (
         <FavouritesGrid
-          favouriteItems={favourteItems}
-          setFavouriteItems={setFavouriteItems}
+          items={favouriteItems}
+          setItems={setFavouriteItems}
+          favouriteIds={favouriteIds}
+          setfavouriteIds={setfavouriteIds}
+          setError={setError}
         />
       )}
     </main>

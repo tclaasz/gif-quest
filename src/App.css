@@ -169,6 +169,12 @@
   color: #FFFFFF;
 }
 
+/* Favourites */
+.no-items-message {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
 /* Utility */
 .visually-hidden {
   position: absolute;
@@ -180,4 +186,8 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.hidden {
+  display: none;
 }

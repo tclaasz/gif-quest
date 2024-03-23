@@ -30,7 +30,7 @@ const Search: React.FC<Props> = ({ setSearchQuery, inputValue, setInputValue }) 
 
       <input
         id="search-input"
-        type="text"
+        type="search"
         className="search-input"
         value={inputValue}
         onChange={handleChange}

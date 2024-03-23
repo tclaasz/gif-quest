@@ -112,11 +112,11 @@ interface Pagination {
 }
 
 // Successful Response (200 OK)
-interface TrendingResponse {
+interface GiphyResponse {
   data: GifObject[];
   pagination: Pagination;
   meta: Meta;
 }
 
 
-export type { GifObject, User, RenditionObject, Images, ImageData, Meta, Pagination, TrendingResponse }
+export type { GifObject, User, RenditionObject, Images, ImageData, Meta, Pagination, GiphyResponse }

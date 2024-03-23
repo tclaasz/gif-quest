@@ -1,9 +1,10 @@
 const config = {
   api: {
-    key: "I7l8PotLmNCMAoR3Xhjji80sXlNrBQQl",
+    key: "F956lwmnfUD02UnJ89SC2D8PnigZEPDZ",
     endpoints: {
       trending: "https://api.giphy.com/v1/gifs/trending",
       search: "https://api.giphy.com/v1/gifs/search",
+      getByIds: "https://api.giphy.com/v1/gifs",
     },
   },
   query: {

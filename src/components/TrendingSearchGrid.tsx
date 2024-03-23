@@ -4,11 +4,11 @@ import GifItem from "./GifItem"
 
 type Props = {
   items: GifObject[]
-  favouriteItems: GifObject[]
-  setFavouriteItems: Dispatch<SetStateAction<GifObject[]>>
+  favouriteIds: string[]
+  setfavouriteIds: Dispatch<SetStateAction<string[]>>
 }
 
-const TrendingSearchGrid: React.FC<Props> = ({ items, favouriteItems, setFavouriteItems }) => {
+const TrendingSearchGrid: React.FC<Props> = ({ items, favouriteIds, setfavouriteIds }) => {
   return (
     <section className="grid-container">
       <div className="trending-search-grid">
@@ -17,8 +17,8 @@ const TrendingSearchGrid: React.FC<Props> = ({ items, favouriteItems, setFavouri
             key={item.id}
             item={item}
             index={index}
-            favouriteItems={favouriteItems}
-            setFavouriteItems={setFavouriteItems}
+            favouriteIds={favouriteIds}
+            setfavouriteIds={setfavouriteIds}
           />
         ))}
       </div>
