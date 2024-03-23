@@ -8,15 +8,7 @@ type Props = {
 const Search: React.FC<Props> = ({ setSearchQuery }) => {
   const [inputValue, setInputValue] = useState("")
 
-  // const debouncedSearch = debounce((value: string) => {
-  //   setSearchQuery(value)
-  // }, 500)
-
-  // const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = event.target.value
-  //   setInputValue(value)
-  // }
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSearch = useCallback(
     debounce((value: string) => {
       setSearchQuery(value)

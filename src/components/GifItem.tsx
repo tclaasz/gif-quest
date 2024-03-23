@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { GifObject } from "../types/Giphy"
+import FavouriteButton from "./FavouriteButton"
 
 type Props = {
   item: GifObject
   index: number
+  favouriteItems: GifObject[]
+  setFavouriteItems: Dispatch<SetStateAction<GifObject[]>>
 }
 
 const colours = ["rgb(153, 51, 255)", "rgb(97 87 255)", "rgb(255, 102, 102)", "rgb(0, 204, 255)", "rgb(0, 255, 153)", "rgb(255 243 92)", "#02FF99"]
 
-const GifItem: React.FC<Props> = ({ item, index }) => {
+const GifItem: React.FC<Props> = ({ item, index, favouriteItems, setFavouriteItems }) => {
   const [loading, setLoading] = useState(true)
 
   const image = item.images?.fixed_height_downsampled
@@ -48,6 +51,8 @@ const GifItem: React.FC<Props> = ({ item, index }) => {
           />
         )}
       </div>
+
+      <FavouriteButton item={item} favouriteItems={favouriteItems} setFavouriteItems={setFavouriteItems} />
     </div>
   ) : null
 }

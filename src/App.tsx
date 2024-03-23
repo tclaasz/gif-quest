@@ -6,10 +6,13 @@ import TrendingSearchGrid from './components/TrendingSearchGrid'
 import Search from './components/Search'
 
 const App: React.FC = () => {
+  const favourites = JSON.parse(localStorage.getItem("favourites") || "[]") as GifObject[]
+
   const [error, setError] = useState<string|null>(null)
   const [trendingItems, setTrendingItems] = useState<GifObject[]>([])
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [searchItems, setSearchItems] = useState<GifObject[]>([])
+  const [favourteItems, setFavouriteItems] = useState<GifObject[]>(favourites)
 
   const { limit, bundle } = config.query
 
@@ -29,6 +32,7 @@ const App: React.FC = () => {
       }
 
       setTrendingItems(data.data)
+      setError(null)
     } catch (error) {
       console.error("An error occurred while fetching trending items.", error)
       setError("An error occurred while fetching trending items.")
@@ -49,6 +53,7 @@ const App: React.FC = () => {
       }
 
       setSearchItems(data.data)
+      setError(null)
     } catch (error) {
       console.error("An error occurred while fetching search items.", error)
       setError("An error occurred while fetching search items.")
@@ -58,6 +63,7 @@ const App: React.FC = () => {
   // On initial render, fetch trending items
   useEffect(() => {
     fetchTrendingItems()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // When the search query changes, fetch search results
@@ -68,6 +74,17 @@ const App: React.FC = () => {
       setSearchItems([])
     }
   }, [fetchSearchItems, searchQuery])
+
+  // Load favourites from local storage on initial render
+  useEffect(() => {
+    if (favourites) setFavouriteItems(favourites)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Save favourites to local storage when they change
+  useEffect(() => {
+    localStorage.setItem("favourites", JSON.stringify(favourteItems))
+  }, [favourteItems])
 
   // When there is a search query, use the search items otherwise use the trending items by default
   const items = useMemo(() => {
@@ -86,7 +103,7 @@ const App: React.FC = () => {
 
       <Search setSearchQuery={setSearchQuery} />
 
-      <TrendingSearchGrid items={items} />
+      <TrendingSearchGrid items={items} favouriteItems={favourteItems} setFavouriteItems={setFavouriteItems} />
     </main>
   )
 }
