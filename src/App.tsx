@@ -4,15 +4,24 @@ import config from "./config"
 import { GifObject, TrendingResponse } from './types/Giphy'
 import TrendingSearchGrid from './components/TrendingSearchGrid'
 import Search from './components/Search'
+import ViewOptions from './components/ViewOptions'
+import FavouritesGrid from './components/FavouritesGrid'
+
+const viewOptions = ["trending", "favourites"] as const
+export type View = typeof viewOptions[number]
 
 const App: React.FC = () => {
-  const favourites = JSON.parse(localStorage.getItem("favourites") || "[]") as GifObject[]
+  const favourites = useMemo(() =>{
+    return JSON.parse(localStorage.getItem("favourites") || "[]") as GifObject[]
+  }, [])
 
   const [error, setError] = useState<string|null>(null)
   const [trendingItems, setTrendingItems] = useState<GifObject[]>([])
+  const [searchInputValue, setSearchInputValue] = useState("")
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [searchItems, setSearchItems] = useState<GifObject[]>([])
   const [favourteItems, setFavouriteItems] = useState<GifObject[]>(favourites)
+  const [view, setView] = useState<View>("trending")
 
   const { limit, bundle } = config.query
 
@@ -101,9 +110,30 @@ const App: React.FC = () => {
         </div>
       )}
 
-      <Search setSearchQuery={setSearchQuery} />
+      {!!viewOptions.length && (
+        <ViewOptions options={viewOptions} view={view} setView={setView} />
+      )}
 
-      <TrendingSearchGrid items={items} favouriteItems={favourteItems} setFavouriteItems={setFavouriteItems} />
+      {view === "trending" ? (
+        <>
+          <Search
+            setSearchQuery={setSearchQuery}
+            inputValue={searchInputValue}
+            setInputValue={setSearchInputValue}
+          />
+
+          <TrendingSearchGrid
+            items={items}
+            favouriteItems={favourteItems}
+            setFavouriteItems={setFavouriteItems}
+          />
+        </>
+      ): (
+        <FavouritesGrid
+          favouriteItems={favourteItems}
+          setFavouriteItems={setFavouriteItems}
+        />
+      )}
     </main>
   )
 }

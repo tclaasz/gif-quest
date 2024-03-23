@@ -1,13 +1,13 @@
-import { Dispatch, SetStateAction, useCallback, useState } from "react"
+import { Dispatch, SetStateAction, useCallback } from "react"
 import { debounce } from "../utils"
 
 type Props = {
   setSearchQuery: Dispatch<SetStateAction<string>>
+  inputValue: string
+  setInputValue: Dispatch<SetStateAction<string>>
 }
 
-const Search: React.FC<Props> = ({ setSearchQuery }) => {
-  const [inputValue, setInputValue] = useState("")
-
+const Search: React.FC<Props> = ({ setSearchQuery, inputValue, setInputValue }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSearch = useCallback(
     debounce((value: string) => {

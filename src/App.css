@@ -23,6 +23,30 @@
   }
 }
 
+/* View Options */
+.view-options {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.view-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: none;
+}
+
+.view-option.is-active {
+  background-color: rgb(153, 51, 255);
+  color: #FFFFFF;
+}
+
 /* Search */
 .search-container {
   width: 100%;

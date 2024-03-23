@@ -1,6 +1,6 @@
 const config = {
   api: {
-    key: "8XPtR82CvoOf8qKo3FhcoLnNIeZO1tZe",
+    key: "I7l8PotLmNCMAoR3Xhjji80sXlNrBQQl",
     endpoints: {
       trending: "https://api.giphy.com/v1/gifs/trending",
       search: "https://api.giphy.com/v1/gifs/search",

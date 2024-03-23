@@ -9,7 +9,15 @@ type Props = {
   setFavouriteItems: Dispatch<SetStateAction<GifObject[]>>
 }
 
-const colours = ["rgb(153, 51, 255)", "rgb(97 87 255)", "rgb(255, 102, 102)", "rgb(0, 204, 255)", "rgb(0, 255, 153)", "rgb(255 243 92)", "#02FF99"]
+const colours = [
+  "rgb(153, 51, 255)",
+  "rgb(97, 87, 255)",
+  "rgb(255, 102, 102)",
+  "rgb(0, 204, 255)",
+  "rgb(0, 255, 153)",
+  "rgb(255 243 92)",
+  "#02FF99"
+]
 
 const GifItem: React.FC<Props> = ({ item, index, favouriteItems, setFavouriteItems }) => {
   const [loading, setLoading] = useState(true)
