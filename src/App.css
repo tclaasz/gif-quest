@@ -54,6 +54,19 @@
   object-fit: cover;
 }
 
+.gif-item-image-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+}
+
+.gif-item-spinner {
+  animation: spin 1s linear infinite;
+}
+
 /* Error */
 .error-container {
   position: fixed;

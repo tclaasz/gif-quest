@@ -14,6 +14,8 @@ const App: React.FC = () => {
   const { limit, bundle } = config.query
 
   const fetchTrendingItems = async () => {
+    if (trendingItems.length > 0) return
+
     try {
       const limit = 36
       const bundle = "messaging_non_clips"
@@ -34,8 +36,9 @@ const App: React.FC = () => {
   }
 
   const fetchSearchItems = useCallback(async () => {
+    if (!searchQuery) return
+
     try {
-      // encode url
       const url = `${config.api.endpoints.search}?api_key=${config.api.key}&q=${encodeURIComponent(searchQuery)}&limit=${limit}&bundle=${bundle}`
 
       const response = await fetch(url)
@@ -55,7 +58,7 @@ const App: React.FC = () => {
   // On initial render, fetch trending items
   useEffect(() => {
     fetchTrendingItems()
-  }, [])
+  }, [fetchTrendingItems])
 
   // When the search query changes, fetch search results
   useEffect(() => {
