@@ -11,6 +11,20 @@
   }
 }
 
+/* Search */
+.search-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.search-input {
+  padding: 2rem;
+  font-size: 3rem;
+  width: 100%;
+}
+
+/* Trending/Search Grid */
 .grid-container {
   display: block;
   width: 100%;
@@ -56,4 +70,17 @@
 .error-message {
   font-size: 2rem;
   color: #FFFFFF;
+}
+
+/* Utility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
