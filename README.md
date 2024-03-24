@@ -22,7 +22,7 @@ To run the project locally, follow these steps:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/gif-quest.git
+   git clone https://github.com/tclaasz/gif-quest.git
    ```
 
 2. Navigate to the project directory

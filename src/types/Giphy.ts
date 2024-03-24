@@ -32,7 +32,7 @@ interface User {
 }
 
 // Images Object
-type RenditionObject = {
+interface RenditionObject {
   url: string;
   width: string;
   height: string;

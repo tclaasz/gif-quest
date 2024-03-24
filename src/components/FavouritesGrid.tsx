@@ -46,7 +46,6 @@ const FavouritesGrid: React.FC<Props> = ({
         throw new Error(data.meta.msg)
       }
 
-      // remove duplicates
       const newItems = data.data.filter((item) => !items.some((i) => i.id === item.id))
       setItems([...items, ...newItems])
       setError(null)
